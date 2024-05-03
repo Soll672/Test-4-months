@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список фильмов</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include 'components/navbar.html' %}
+    
+    <div class="container">
+        <h1>Список фильмов</h1>
+        <p>Здесь вы можете ознакомиться со списком фильмов, которые мы предлагаем вам посмотреть.</p>
+
+        <form action="{% url 'films_list' %}" method="get">
+    <input type="text" name="query" placeholder="Search films">
+    <button type="submit">Search</button>
+</form>
+
+
+        <div class="row">
+            {% for film in films %}
+                <div class="col-4">
+                    <div class="card">
+                        <img src="/media/{{ film.image }}" class="card-img-top" alt="{{ film.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ film.title }} {{ film.year }}</h5>
+                            {% if film.rating %}
+                                <p class="card-text">Рейтинг: {{ film.rating }}</p>
+                            {% endif %}
+                            <p class="card-text">{{ film.description|truncatechars:100 }}</p>
+                            <!-- truncatechars:100 - обрезает текст до 100 символов. 
+                                Подробнее: https://docs.djangoproject.com/en/3.2/ref/templates/builtins/#truncatechars -->
+                            <a href="{{ film.id }}/" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+    {% include 'components/footer.html' %}
+</body>
+</html>

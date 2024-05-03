@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список актерев</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include 'components/navbar.html' %}
+
+    <div class="container">
+        <h1>Список актерев</h1>
+        <p>Здесь вы можете ознакомиться со списком актерев, которые снимались в наших фильмах.</p>
+        
+        <div class="row">
+            {% for actor in actors %}
+                <div class="col-4">
+                    <div class="card">
+                        <img src="/media/{{ actor.image }}" class="card-img-top" alt="{{ actor.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ actor.name }}</h5>
+                            <p class="card-text">{{ actor.birth_date }}</p>
+                            <p class="card-text">{{ actor.birth_place }}</p>
+                            <a href="{{ actor.id }}/" class="btn btn-primary">Подробнее</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+
+    {% include 'components/footer.html' %}
+</body>
+</html>
