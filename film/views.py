@@ -16,7 +16,7 @@ def film_list_view(request):
     if query:
         films = Film.objects.filter(
             Q(title__icontains=query) | Q(genres__name__icontains=query)
-        ).distinct()  # Добавляем .distinct() для устранения дубликатов
+        ).distinct()
     else:
         films = Film.objects.all()
 
